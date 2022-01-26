@@ -22,16 +22,23 @@ public class Calculator {
     }
 
     int calculate() throws Exception {
-        int sum = 0;
+        int sum = 0, num1, num2;
+        String operator;
         if (expression.size() % 2 == 0)
             throw new Exception("Not an Operator");
+        try {
+            num1 = Integer.parseInt(expression.get(0));
+            expression.subList(0, 1).clear();
+        }catch (Exception e)
+        {
+            throw new Exception("Not an Operator");
+        }
 
         while (!expression.isEmpty()) {
-
             try {
-                int num1 = Integer.parseInt(expression.get(0));
-                String operator = expression.get(1);
-                int num2 = Integer.parseInt(expression.get(2));
+                operator = expression.get(0);
+                num2 = Integer.parseInt(expression.get(1));
+                expression.subList(0, 2).clear();
                 switch (operator)
                 {
                     case "+":
@@ -64,14 +71,8 @@ public class Calculator {
             }catch (Exception e){
                 throw new Exception("Not an Operator");
             }
-
-
-            expression.subList(0, 3).clear();
-
-
             if (!expression.isEmpty()) {
-                String tmp = Integer.toString(sum);
-                expression.add(0,tmp);
+                num1 = sum;
             }
         }
         return sum;
